@@ -1,0 +1,35 @@
+The data used in this repository project contain the following variables:
+
+GENDER
+
+AGE
+
+HEIGHT
+
+WEIGHT
+
+HISTORY
+
+FAVC, frequent consumption of high caloric food as a factor with levels "no" and "yes";
+
+FCVC, frequency of consumption of vegetables as a numeric variable;
+
+NCP, number of main meals;
+
+CAEC, consumption of food between meals as a factor with levels "no", "Sometimes", "Frequently" and "Always";
+
+SMOKE, smoking status as a factor with levels "no" and "yes";
+
+CH2O, consumption of water daily as a numeric variable;
+
+SCC, calories consumption monitoring as a factor with level "no" and "yes";
+
+FAF, physical activity frequency as a numeric variable;
+
+TUE, time using technology devices as a numeric variable;
+
+CALC, consumption of alcohol as a dfactor with levels "no", "Sometimes", "Frequently" and "Always";
+
+MTRANS, transportation used as a factor with levels "Automobile", "Bike", "Motorbike", "Public_Transportation" and "Walking";
+
+OBLEVEL, the obesity level as a factor with levels "Insufficient_Weight", "Normal_Weight", "Overweight_Level_I", "Overweight_Level_II", "Obesity_Type_I", "Obesity_Type_II", "Obesity_Type_III".
