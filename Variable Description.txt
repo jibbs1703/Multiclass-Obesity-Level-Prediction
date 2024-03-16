@@ -1,35 +1,43 @@
 The data used in this repository project contain the following variables:
 
-GENDER
+The Target Variable:
 
-AGE
+The obesity level as a factor with levels "Insufficient_Weight", "Normal_Weight", "Overweight_Level_I", "Overweight_Level_II", "Obesity_Type_I", "Obesity_Type_II", "Obesity_Type_III" (OBLEVEL)
 
-HEIGHT
+Variables related to demographics:
 
-WEIGHT
+Gender of respondent (GENDER)
 
-HISTORY
+Age of Resondent (AGE)
 
-FAVC, frequent consumption of high caloric food as a factor with levels "no" and "yes";
+Height of Respondent (HEIGHT)
 
-FCVC, frequency of consumption of vegetables as a numeric variable;
+Weight of Respondent (WEIGHT)
 
-NCP, number of main meals;
+Family History of being overweight (HISTORY)
 
-CAEC, consumption of food between meals as a factor with levels "no", "Sometimes", "Frequently" and "Always";
+Smoking status as a factor with levels "no" and "yes" (SMOKE)
 
-SMOKE, smoking status as a factor with levels "no" and "yes";
+Variables related with eating habits are:
 
-CH2O, consumption of water daily as a numeric variable;
+Frequent consumption of high caloric food as a factor with levels "no" and "yes" (FAVC)
 
-SCC, calories consumption monitoring as a factor with level "no" and "yes";
+Frequency of consumption of vegetables as a numeric variable (FCVC)
 
-FAF, physical activity frequency as a numeric variable;
+Number of main meals (NCP)
 
-TUE, time using technology devices as a numeric variable;
+Consumption of food between meals as a factor with levels "no", "Sometimes", "Frequently" and "Always" (CAEC)
 
-CALC, consumption of alcohol as a dfactor with levels "no", "Sometimes", "Frequently" and "Always";
+Consumption of water daily as a numeric variable (CH20)
 
-MTRANS, transportation used as a factor with levels "Automobile", "Bike", "Motorbike", "Public_Transportation" and "Walking";
+Consumption of alcohol as a dfactor with levels "no", "Sometimes", "Frequently" and "Always" (CALC)
 
-OBLEVEL, the obesity level as a factor with levels "Insufficient_Weight", "Normal_Weight", "Overweight_Level_I", "Overweight_Level_II", "Obesity_Type_I", "Obesity_Type_II", "Obesity_Type_III".
+Variables related with the physical condition are:
+
+Calories consumption monitoring as a factor with level "no" and "yes" (SCC)
+
+Physical activity frequency as a numeric variable (FAF)
+
+Time using technology devices as a numeric variable (TUE)
+
+Means of transportation used as a factor with levels "Automobile", "Bike", "Motorbike", "Public_Transportation" and "Walking" (MTRANS)
