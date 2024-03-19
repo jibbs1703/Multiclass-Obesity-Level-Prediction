@@ -6,14 +6,16 @@ The dataset used for this project was obtained from [UCI Machine Learning Reposi
 
 The data contains 17 attributes and 2111 records. The target attribute is the Obesity Level (OBLEVEL), that allows classification of the data using the values of Insufficient Weight, Normal Weight, Overweight Level I, Overweight Level II, Obesity Type I, Obesity Type II and Obesity Type III (seven levels). The feature attributes related to eating habits are Frequent consumption of high caloric food (FAVC), Frequency of consumption of vegetables (FCVC), Number of main meals (NCP), Consumption of food between meals (CAEC), Consumption of water daily (CH20), and Consumption of alcohol (CALC). The feature attributes related to physical condition are Calories consumption monitoring (SCC), Physical activity frequency (FAF), Time using technology devices (TUE), Transportation used (MTRANS). Demographic attributes such as Gender (GENDER), Age (AGE), Height (HEIGHT) and Weight (WEIGHT) were also recorded.
 
-The dataset contains no missing values, implying that the model used has no use for imputing missing values. 
+The dataset contains no missing values, implying that the model used has no use for imputing missing values. Hence, the SimpleImputer() method is not imported for this model.
 
 
 ## Python Packages and Modules Needed
 - [Pandas](https://pandas.pydata.org/)
 - [NumPy](https://numpy.org/)
+- [Seaborn](https://seaborn.pydata.org/)
+- [Matplotlib](https://matplotlib.org/)
 - [Scikit-Learn](https://scikit-learn.org/)
-- Pickle
+- [Pickle](Lib/pickle.py)
 
 ## Model Description and Steps in Code Script
 
@@ -21,7 +23,4 @@ The dataset contains no missing values, implying that the model used has no use 
 
 ## Author(s)
 - **Abraham Ajibade** [Linkedin](https://www.linkedin.com/in/abraham-ajibade-759772117)
-- **Boluwtife Olayinka** [Linkedin](https://www.linkedin.com/in/ajibade-bolu/)
-
-## Code Use and Re-use
-This repository and the code therein can be used by everyone, with full permission from the authors. 
+- **Boluwtife Olayinka** [Linkedin](https://www.linkedin.com/in/ajibade-bolu/) 
