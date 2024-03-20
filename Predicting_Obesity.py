@@ -114,7 +114,7 @@ print(f"Validation Accuracy: {val_accuracy}")
 # Check Model Performance with Test Data
 test_preds = model.predict(X_test)
 test_accuracy = accuracy_score(y_test, test_preds)
-print(f"Validation Accuracy: {test_accuracy}")
+print(f"Test Accuracy: {test_accuracy}")
 
 # Confusion matrix for Validation Data
 conf_matrix = pd.crosstab(y_val, val_preds, rownames=['Actual'], colnames=['Predicted'])
@@ -138,9 +138,9 @@ obmap  ={0:'Insufficient_Weight',1:'Normal_Weight',2:'Overweight_Level_I',3:'Ove
 results = results.apply(lambda col: col.map(obmap))
 results.head()
 
-# Check Distribution of Actual and Predicted Values
-results['Predicted'].value_counts()
-results['Actual'].value_counts()
+#Comparisms of the Actual and Predicted Obesity Levels (as Proportions)
+print(results['Predicted'].value_counts(normalize= True))
+print(results['Actual'].value_counts(normalize= True))
 
 # Save Model as .pkl file
 pickle.dump(model, open('model.pkl', 'wb'))
