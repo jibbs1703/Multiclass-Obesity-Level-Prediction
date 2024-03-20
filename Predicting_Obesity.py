@@ -1,3 +1,5 @@
+# Predicting Obesity Levels Using the Random Forest Classifier Model
+
 # Import Necessary Libraries 
 # Data Exploration, Analysis and Visualization
 import pandas as pd
@@ -44,7 +46,13 @@ obesity["CH2O"] = obesity["CH2O"].map(cat_ch2o)
 obesity["FAF"] = obesity["FAF"].map(cat_faf)
 obesity["TUE"] = obesity["TUE"].map(cat_tue)
 
-#Data Exploration and Vizualization
+# View Description of Categorical Attributes and Target Variable
+obesity.describe(exclude=[np.number])
+
+# View Description of Numeric Attributes 
+obesity.describe()
+
+# Data Exploration and Vizualization
 # Sort the Variables into Separate Lists of the Categorical and Numerical Columns in the Dataset
 num_cols = list(obesity.select_dtypes(exclude=['object']).columns)
 print(num_cols)
