@@ -35,6 +35,7 @@ The model was first trained and validated with minimal hyperparameter tuning, gi
 | Obesity_Type_II  |  0.132388     |  0.134752    |
 | Obesity_Type_III | 0.118203      | 0.122931 |
       
+To give more context on the important predictors of obesity levels, the results also show the most important and least important feature attributes in predicting obesity levels. The model indicates that the most important predictors of obesity levels in individuals were the individual's age, weight, height, number of main meals consumed, frequent consumption of vegetables, gender and family history with obesity. 
 
 ## Author(s)
 - **Abraham Ajibade** [Linkedin](https://www.linkedin.com/in/abraham-ajibade-759772117)

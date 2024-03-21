@@ -1,5 +1,4 @@
 # Predicting Obesity Levels Using the Random Forest Classifier Model
-
 # Import Necessary Libraries 
 # Data Exploration, Analysis and Visualization
 import pandas as pd
@@ -115,6 +114,23 @@ print(f"Validation Accuracy: {val_accuracy}")
 test_preds = model.predict(X_test)
 test_accuracy = accuracy_score(y_test, test_preds)
 print(f"Test Accuracy: {test_accuracy}")
+
+# Create a Feature Importance Series to Visualize the Most and Least Important Predictors of Obesity Levels
+features = X_train.columns
+importances = model.feature_importances_
+feat_imp = pd.Series(importances, index = features).sort_values()
+
+# 15 Most Important Predictors of Obesity Levels
+feat_imp.tail(15).plot(kind = 'barh')
+plt.xlabel('Importance')
+plt.ylabel('Features')
+plt.title("15 Most Important Features in Predicting Obesity Levels");
+
+# 15 Least Important Predictors of Obesity Levels
+feat_imp.head(15).plot(kind = 'barh')
+plt.xlabel('Importance')
+plt.ylabel('Features')
+plt.title("15 Least Important Features in Predicting Obesity Levels");
 
 # Confusion matrix for Validation Data
 conf_matrix = pd.crosstab(y_val, val_preds, rownames=['Actual'], colnames=['Predicted'])
