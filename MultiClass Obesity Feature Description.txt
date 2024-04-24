@@ -1,0 +1,43 @@
+The data used in this repository project contains the following variables:
+
+The Target Variable:
+
+The obesity level as a factor with levels "Insufficient_Weight", "Normal_Weight", "Overweight_Level_I", "Overweight_Level_II", "Obesity_Type_I", "Obesity_Type_II", "Obesity_Type_III" (OBLEVEL)
+
+Variables related to demographics:
+
+Gender of Respondent as a factor with levels "Male" and  "Female" (GENDER)
+
+Age of Respndent as an integer (AGE)
+
+Height of Respondent  as a float in meters (HEIGHT)
+
+Weight of Respondent as a float in kilograms (WEIGHT)
+
+Family History of being overweight as a factor with levels "no" and "yes" (HISTORY)
+
+Smoking status as a factor with levels "no" and "yes" (SMOKE)
+
+Variables related with eating habits are:
+
+Frequent consumption of high caloric food as a factor with levels "no" and "yes" (FAVC)
+
+Frequency of consumption of vegetables as a factor with levels "Never", "Sometimes" and "Always" (FCVC) 
+
+Number of main meals as a numeric variable (NCP)
+
+Consumption of food between meals as a factor with levels "no", "Sometimes", "Frequently" and "Always" (CAEC)
+
+Consumption of water daily as a factor with levels "Less_than_1L", "Between_1_and_2L" and "More_than_2L" (CH20)
+
+Consumption of alcohol as a factor with levels "no", "Sometimes", "Frequently" and "Always" (CALC)
+
+Variables related with the physical condition are:
+
+Calories consumption monitoring as a factor with levels "no" and "yes" (SCC)
+
+Physical activity frequency as a factor with levels "I_do_not", "One_or_Two_Days", "Two_or_Four_Days" and "Four_or_Five_Days" (FAF)
+
+Time using technology devices as a factor with levels "Zero_to_Two_Hours", "Between_Three_and_Five_Hours" and "More_than_Five_Hours" (TUE)
+
+Means of transportation used as a factor with levels "Automobile", "Bike", "Motorbike", "Public_Transportation" and "Walking" (MTRANS)
