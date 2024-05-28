@@ -26,6 +26,8 @@ The data collected covered  demographic data as well as data on eating habits an
 
 **XGBoost Classifier** : The XGBoost Classifier Model attained a 90.5% accuracy on the Training Dataset and 88.18% accuracy score on Test Dataset. 
 
+**Simple Neural Network** : The 2-Layer Neural Network Model attained a 89.57% accuracy on the Training Dataset and 86.88% accuracy score on Test Dataset. 
+
 ## Author(s)
 - **Abraham Ajibade** [Linkedin](https://www.linkedin.com/in/abraham-ajibade-759772117)
 - **Boluwtife Olayinka** [Linkedin](https://www.linkedin.com/in/ajibade-bolu/) 
