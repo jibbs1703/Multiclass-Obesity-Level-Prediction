@@ -1,13 +1,15 @@
 import os
 from dotenv import load_dotenv
+from io import StringIO
 import logging
 import boto3
 from botocore.exceptions import ClientError
-import pandas as pd
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
+
 class S3Buckets:
+
     @classmethod
     def credentials(cls):
         """
@@ -40,9 +42,9 @@ class S3Buckets:
         :param region: Specified AWS region during instantiation (default is None)
         """
         if region is None:
-            self.client = boto3.client(
-                "s3", aws_access_key_id=access, aws_secret_access_key=secret
-            )
+            self.client = boto3.client("s3",
+                                       aws_access_key_id=access,
+                                       aws_secret_access_key=secret)
         else:
             self.location = {"LocationConstraint": region}
             self.client = boto3.client(
@@ -61,7 +63,8 @@ class S3Buckets:
         response = self.client.list_buckets()
         buckets = response["Buckets"]
         all_buckets = [bucket["Name"] for bucket in buckets]
-        logging.info(f"This account contains the following buckets: {all_buckets}")
+        logging.info(
+            f"This account contains the following buckets: {all_buckets}")
         return all_buckets
 
     def create_bucket(self, bucket_name):
@@ -80,41 +83,37 @@ class S3Buckets:
             logging.info(f"The bucket {bucket_name} already exists")
         else:
             logging.info("A new bucket will be created in your AWS account")
-            self.client.create_bucket(
-                Bucket=bucket_name, CreateBucketConfiguration=self.location
-            )
-            logging.info(f"The bucket {bucket_name} has been successfully created")
+            self.client.create_bucket(Bucket=bucket_name,
+                                      CreateBucketConfiguration=self.location)
+            logging.info(
+                f"The bucket {bucket_name} has been successfully created")
 
-    def list_files(self, bucket_name, folder=""):
+    def list_objects(self, bucket_name):
         """
-        Lists files in an S3 bucket.
-        Parameters:
-        - bucket_name (str): The name of the S3 bucket.
-        - folder (str, optional): The folder path within the S3 bucket. Default is an empty string.
+        Lists the objects in an S3 bucket.
 
-        Returns: list: A list of filenames in the specified S3 bucket and folder.
-
-        Logs:
-        - Info: On successfully retrieving the list of files.
-        - Error: If there's an error during the list retrieval."""
-
+        :param bucket_name: Name of the S3 bucket.
+        :return: List of object keys if successful, None otherwise.
+        """
         try:
-            response = self.client.list_objects_v2(Bucket=bucket_name, Prefix=folder)
-            if "Contents" in response:
-                files = [item["Key"] for item in response["Contents"]]
+            response = self.client.list_objects_v2(Bucket=bucket_name)
+
+            if 'Contents' in response:
+                object_keys = [obj['Key'] for obj in response['Contents']]
                 logging.info(
-                    f"Files retrieved successfully from {bucket_name}/{folder}"
-                )
-                return files
+                    f"Objects in bucket '{bucket_name}': {object_keys}")
+                return object_keys
             else:
-                logging.info(f"No files found in {bucket_name}/{folder}")
+                logging.info(f"No objects found in bucket '{bucket_name}'.")
                 return []
+
         except ClientError as e:
-            logging.error(f"Error retrieving file list from S3: {str(e)}")
-            return []
+            logging.error(f"Client Error listing objects: {e}")
+            return None
+
         except Exception as e:
-            logging.error(f"An unexpected error occurred: {str(e)}")
-            return []
+            logging.exception(f"Unexpected error listing objects: {e}")
+            return None
 
     def upload_file(self, bucket_name, filename, file, folder=""):
         """
@@ -126,16 +125,11 @@ class S3Buckets:
         - folder (str, optional): The folder path within the S3 bucket. Default is an empty string.
 
         Returns: None
-
-        Logs:
-        - Info: On successful upload of the file.
-        - Error: If there's an error during upload.
-        - Error: If an unexpected error occurs.
         """
         try:
-            self.client.put_object(
-                Bucket=bucket_name, Key=f"{folder}{filename}", Body=file.getvalue()
-            )
+            self.client.put_object(Bucket=bucket_name,
+                                   Key=f"{folder}{filename}",
+                                   Body=file.getvalue())
             logging.info(
                 f"File {filename} uploaded successfully to {bucket_name}/{folder}"
             )
@@ -144,35 +138,79 @@ class S3Buckets:
         except Exception as e:
             logging.error(f"Error uploading file to S3: {str(e)}")
 
-    def download_file(self, bucket_name: str, s3_key: str, local_path: str) -> bool:
+    def download_file(self, bucket_name, object_name, file_name) -> None:
         """
-        Downloads a file from an S3 bucket.
+        Downloads a file from an S3 bucket in the user's AWS account.
 
-        Args:
-            bucket_name: The name of the S3 bucket.
-            s3_key: The S3 key (path) of the file.
-            local_path: The local file path where the file will be downloaded. 
-            local_path should include folder+filename.
-
-        Returns:
-            True on successful download, False otherwise.
+        :param bucket_name: Name of the bucket to download the file from
+        :param object_name: Name of the file to download from the S3 bucket
+        :param file_name: Name of the file to save the downloaded content to
+        :return: None
         """
         try:
-            # Ensure the local directory exists
-            local_dir = os.path.dirname(local_path)
-            if local_dir:  # Check if a directory part exists
-                os.makedirs(local_dir, exist_ok=True)  # Create directory if needed
-
-            self.client.download_file(bucket_name, s3_key, local_path)
-
-            logging.info(f"File '{s3_key}' downloaded successfully to '{local_path}' from bucket '{bucket_name}'.")
+            self.client.download_file(bucket_name, object_name, file_name)
+            logging.info(
+                f"File '{object_name}' downloaded successfully from bucket '{bucket_name}' to '{file_name}'."
+            )
 
         except ClientError as e:
             logging.error(f"Client Error downloading file: {e}")
-            if e.response['Error']['Code'] == 'NoSuchKey':
-                logging.error(f"The specified key '{s3_key}' does not exist in bucket '{bucket_name}'.")
-            elif e.response['Error']['Code'] == 'NoSuchBucket':
-                logging.error(f"The bucket '{bucket_name}' does not exist.")
 
         except Exception as e:
             logging.exception(f"Unexpected error downloading file: {e}")
+
+    def read_file(self, bucket_name, object_name):
+        """
+        Reads a file from an S3 bucket in the user's AWS account and returns its contents.
+
+        :param bucket_name: Name of the bucket to read the file from.
+        :param object_name: Name of the file to read from the S3 bucket.
+        :return: An object containing the file's contents, or None if an error occurs.
+        """
+        try:
+            response = self.client.list_objects_v2(Bucket=bucket_name)
+            if 'Contents' not in response or not any(
+                    obj['Key'] == object_name for obj in response['Contents']):
+                logging.info(
+                    f"The specified key '{object_name}' does not exist in bucket '{bucket_name}'."
+                )
+                return "File not in bucket"
+
+            response = self.client.get_object(Bucket=bucket_name,
+                                              Key=object_name)
+            file_content = StringIO(response['Body'].read().decode('utf-8'))
+            logging.info(
+                f"File '{object_name}' read successfully from bucket '{bucket_name}'."
+            )
+            return file_content
+
+        except ClientError as e:
+            logging.error(f"Client Error reading file: {e}")
+            return None
+
+        except Exception as e:
+            logging.exception(f"Unexpected error reading file: {e}")
+            return None
+
+    def delete_file(self, bucket_name, file_name):
+        """
+        Deletes a file from an S3 bucket in the user's AWS account.
+
+        :param bucket_name: Name of the bucket to access the file.
+        :param object_name: Name of the file to delete from the S3 bucket.
+        :return: Message indicating the result of the deletion.
+        """
+        try:
+            self.client.delete_object(Bucket=bucket_name, Key=file_name)
+            logging.info(
+                f"The file '{file_name}' has been deleted from the bucket '{bucket_name}'."
+            )
+            return f"The file '{file_name}' has been deleted from the bucket '{bucket_name}'."
+
+        except ClientError as e:
+            logging.error(f"Client Error deleting file: {e}")
+            return f"Client Error: Unable to delete the file '{file_name}' from the bucket '{bucket_name}'."
+
+        except Exception as e:
+            logging.exception(f"Unexpected error deleting file: {e}")
+            return f"Error: Unexpected error occurred while deleting the file '{file_name}' from the bucket '{bucket_name}'."
