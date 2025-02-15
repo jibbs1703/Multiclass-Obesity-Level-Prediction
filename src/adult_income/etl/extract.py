@@ -17,5 +17,5 @@ def run_data_extraction(bucket_name: str, file_name: str) -> pd.DataFrame:
     
     """
     s3_conn = S3Buckets.credentials()
-    csv_file = s3_conn.read_file(bucket_name, file_name)
+    csv_file = s3_conn.read_file(bucket_name=bucket_name, object_name=file_name)
     return extract_csv(csv_file)

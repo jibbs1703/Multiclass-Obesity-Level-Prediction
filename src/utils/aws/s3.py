@@ -141,6 +141,9 @@ class S3Buckets:
         except ClientError as e:
             logging.error(f"Error uploading file to S3: {str(e)}")
 
+        except Exception as e:
+            logging.error(f"Error uploading file to S3: {str(e)}")
+
     def download_file(self, bucket_name, object_name, file_name) -> None:
         """
         Downloads a file from an S3 bucket in the user's AWS account.
