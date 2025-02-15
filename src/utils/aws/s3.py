@@ -1,9 +1,10 @@
-import os
-from dotenv import load_dotenv
-from io import StringIO
 import logging
+import os
+from io import StringIO
+
 import boto3
 from botocore.exceptions import ClientError
+from dotenv import load_dotenv
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
@@ -15,12 +16,13 @@ class S3Buckets:
         """
         Retrieves AWS credentials from a hidden environment file.
 
-        This class method accesses the user's AWS secret and access keys stored in an environment file.
-        If a region is specified, the methods within the S3Buckets class will execute in that region.
-        Otherwise, AWS will assign a default region.
+        This class method accesses the user's AWS secret and access keys stored in an
+        environment file. If a region is specified, the methods within the S3Buckets
+        class will execute in that region. Otherwise, AWS will assign a default region.
 
         :param region: AWS region specified by the user (default is None)
-        :return: An instance of the S3Buckets class initialized with the user's credentials and specified region
+        :return: An instance of the S3Buckets class initialized with the user's
+        credentials and specified region
         """
         load_dotenv()
         secret = os.getenv("ACCESS_SECRET")
@@ -31,11 +33,13 @@ class S3Buckets:
 
     def __init__(self, secret, access, region):
         """
-        Initializes the S3Buckets class with user credentials and creates the AWS S3 client.
+        Initializes the S3Buckets class with user credentials and creates 
+        the AWS S3 client.
 
-        This constructor method initializes the S3Buckets class using the provided secret and access keys.
-        It creates an AWS S3 client using the boto3 library. If no region is specified, AWS assigns a default
-        region. The created client is available for subsequent methods within the class.
+        This constructor method initializes the S3Buckets class using the provided
+        secret and access keys. It creates an AWS S3 client using the boto3 library.
+        If no region is specified, AWS assigns a default region. The created client
+        is available for subsequent methods within the class.
 
         :param secret: User's AWS secret key loaded from the environment file
         :param access: User's AWS access key loaded from the environment file
@@ -71,9 +75,10 @@ class S3Buckets:
         """
         Creates an S3 bucket in the user's AWS account.
 
-        This method creates a new S3 bucket in the region specified during the instantiation of the class.
-        If the bucket name has already been used, it will not create a new bucket. If no region is specified,
-        the bucket is created in the default S3 region (us-east-1).
+        This method creates a new S3 bucket in the region specified during the
+        instantiation of the class. If the bucket name has already been used,
+        it will not create a new bucket. If no region is specified,
+        the bucket is created in the user's AWS CLI region.
 
         :param bucket_name: Name of the bucket to be created
 
@@ -134,8 +139,6 @@ class S3Buckets:
                 f"File {filename} uploaded successfully to {bucket_name}/{folder}"
             )
         except ClientError as e:
-            logging.error(f"Error uploading file to S3: {str(e)}")
-        except Exception as e:
             logging.error(f"Error uploading file to S3: {str(e)}")
 
     def download_file(self, bucket_name, object_name, file_name) -> None:

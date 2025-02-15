@@ -1,8 +1,9 @@
 """This module contains functions to visualize data"""
-from matplotlib.axes import Axes
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+from matplotlib.axes import Axes
+
 
 def cat_distribution(df: pd.DataFrame, column:str) -> Axes:
     """ Plot the distribution of a categorical variable """
